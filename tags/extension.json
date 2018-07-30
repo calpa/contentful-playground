@@ -1,0 +1,6 @@
+{
+  "id": "tags",
+  "name": "Tags",
+  "srcdoc": "./app.html",
+  "fieldTypes": ["Symbol", "Text"]
+}

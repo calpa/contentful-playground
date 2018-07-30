@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Rating Dropdown Widget</title>
+  <link rel="stylesheet" href="//contentful.github.io/ui-extensions-sdk/cf-extension.css">
+  <!-- Contenful UI Extensions SDK API -->
+  <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+</head>
+
+<body>
+  <div class="cf-form-field">
+    <label>Tags</label>
+    <input class="cf-form-input" size="50" placeholder="請輸入標籤" id="input" />
+    <div id="tags" class="cf-form-hint">
+      請輸入標籤
+    </div>
+  </div>
+
+
+
+  <script>
+    var cfExt = window.contentfulExtension || window.contentfulWidget;
+
+    var $input = $('#input');
+    var $tags = $('#tags');
+    var pattern = /^([\u4e00-\u9fa5\w\-](\,\ )?)+$/;
+
+    cfExt.init(function (api) {
+
+      api.window.startAutoResizer();
+
+      var value = api.field.getValue();
+      $tags.innerText = value;
+
+      api.field.onValueChanged(function (value) {
+        $tags.innerText = value;
+      });
+
+      $('input').on('input', function (event) {
+        var ans = event.target.value;
+
+
+        if (ans.match(pattern)) {
+          $tags.removeClass('cf-field-error');
+          api.field.setValue(ans);
+        } else {
+          $tags.addClass('cf-field-error');
+        }
+
+        $tags.innerText = ans;
+
+      })
+
+    });
+
+  </script>
+</body>
+
+</html>
